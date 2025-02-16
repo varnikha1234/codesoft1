@@ -1,0 +1,79 @@
+#include <iostream>
+using namespace std;
+
+class CalculatorBase {
+protected:
+    double num1, num2;
+
+public:
+    void getInput() {
+        cout << "Enter the first number: ";
+        cin >> num1;
+        cout << "Enter the second number: ";
+        cin >> num2;
+    }
+
+    void displayMenu() {
+        cout << "\nSelect an operation from the following:" << endl;
+        cout << "1. Addition" << endl;
+        cout << "2. Subtraction" << endl;
+        cout << "3. Multiplication" << endl;
+        cout << "4. Division" << endl;
+        cout << "Select the operation to be performed (enter 1-4): ";
+    }
+};
+
+class Calculator : public CalculatorBase {
+public:
+    double add() {
+        return num1 + num2;
+    }
+    double subtract() {
+        return num1 - num2;
+    }
+    double multiply() {
+        return num1 * num2;
+    }
+    double divide() {
+        if (num2 != 0)
+            return num1 / num2;
+        else {
+            cout << "Error! Division by zero is not allowed." << endl;
+            return 0;
+        }
+    }
+};
+
+int main() {
+    Calculator calc;
+    int choice;
+    char cont;
+    do {
+        calc.getInput();
+        calc.displayMenu();
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                cout << "Addition of " << calc.add() << endl;
+                break;
+            case 2:
+                cout << "Subtraction result: " << calc.subtract() << endl;
+                break;
+            case 3:
+                cout << "Multiplication result: " << calc.multiply() << endl;
+                break;
+            case 4:
+                cout << "Division result: " << calc.divide() << endl;
+                break;
+            default:
+                cout << "Invalid selection!" << endl;
+        }
+
+        cout << "Do you want to perform another calculation? (y/n): ";
+        cin >> cont;
+    } while (cont == 'y' || cont == 'Y');
+
+    cout << "Exiting Calculator. Goodbye!" << endl;
+    return 0;
+}
